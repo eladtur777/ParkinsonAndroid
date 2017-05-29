@@ -1,14 +1,19 @@
 package com.example.eltur.parkinsonbp;
 
+import com.example.eltur.parkinsonbp.HttpClient.HttpClient;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataOutput;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -86,10 +91,23 @@ public class connectToDB {
         }
 
     }
+    public static void main(String args[]) {
 
-   // public static void main(String args[]){
-     //   AddActivities("1");
-   // }
+        //add list of activities of patient to Activity class list
+        PatientRecord content = new PatientRecord();
+        content.setPatientID("125");
+        // moodAndAction activities = new moodAndAction();
+        Activity addNewActivity = new Activity("test13","test","test");
+        //addNewActivity.AddActivitiesToList(activities.getActivityList());
+        content.getListOfActivitiy().add(addNewActivity);
+        content.setPatientLastUpdate(new Date());
+        HttpClient httpClient = HttpClient.getClient();
+        try{
+            httpClient.SendPatientRecordToServer("http://localhost:8080/BEAT-PD/User//Update/PatientRecord/ActivitiesAndMedicines",content);
+        }catch (MalformedURLException | JsonProcessingException ex){
+            System.out.println(String.format("Error:%s",ex.getMessage()));
+        }
+    }
 }
 
 

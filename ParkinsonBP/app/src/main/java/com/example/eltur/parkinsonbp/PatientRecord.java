@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
+import static com.example.eltur.parkinsonbp.Utils.UtilsMethod.CustomDateFormat;
 
 
 public class PatientRecord {
@@ -17,9 +18,8 @@ public class PatientRecord {
         private Collection<Medicine> listOfMedicine = new ArrayList();
         @Override
         public String toString(){
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-            return String.format("{patientID:%s,patientLastUpdate:%s,listOfActivitiy:%s,listOfMedicine:%s}", patientID,dateFormat.format(patientLastUpdate),listOfActivitiy,listOfMedicine);
+            return String.format("{patientID:%s,patientLastUpdate:%s,listOfActivitiy:%s,listOfMedicine:%s}", patientID,CustomDateFormat().format(patientLastUpdate),listOfActivitiy,listOfMedicine);
         }
         public PatientRecord(){}
 
