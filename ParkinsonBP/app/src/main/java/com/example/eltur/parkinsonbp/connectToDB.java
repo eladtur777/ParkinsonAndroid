@@ -1,23 +1,15 @@
 package com.example.eltur.parkinsonbp;
 
 import com.example.eltur.parkinsonbp.HttpClient.HttpClient;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.example.eltur.parkinsonbp.ServerClass.Activity;
+import com.example.eltur.parkinsonbp.ServerClass.PatientRecord;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.DataOutput;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -103,8 +95,9 @@ public class connectToDB {
         content.setPatientLastUpdate(new Date());
         HttpClient httpClient = HttpClient.getClient();
         try{
-            httpClient.SendPatientRecordToServer("http://localhost:8080/BEAT-PD/User//Update/PatientRecord/ActivitiesAndMedicines",content);
-        }catch (MalformedURLException | JsonProcessingException ex){
+            //httpClient.SendPatientRecordToServer("http://localhost:8080/BEAT-PD/User//Update/PatientRecord/ActivitiesAndMedicines",content);
+            httpClient.GetAllActivitiesFromServer("http://localhost:8080/BEAT-PD/User/GET/AllActivities/");
+        }catch (MalformedURLException /*| JsonProcessingException*/ ex){
             System.out.println(String.format("Error:%s",ex.getMessage()));
         }
     }

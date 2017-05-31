@@ -1,6 +1,10 @@
 package com.example.eltur.parkinsonbp.HttpClient;
 
+import com.example.eltur.parkinsonbp.ServerClass.Activity;
+import com.example.eltur.parkinsonbp.ServerClass.ActivityList;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.BufferedInputStream;
@@ -11,8 +15,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
-import static android.R.attr.format;
 import static com.example.eltur.parkinsonbp.Utils.UtilsMethod.convertStreamToString;
 
 /**
@@ -20,11 +25,13 @@ import static com.example.eltur.parkinsonbp.Utils.UtilsMethod.convertStreamToStr
  */
 
 public class HttpClient {
-    private HttpClient(){}
+    private HttpClient(){
+    }
     private static HttpClient httpClient = new HttpClient();
     private URL url;
     private HttpURLConnection urlConnection;
     private static ObjectMapper mapper = new ObjectMapper();
+
     private InputStream inputStream;
     private  OutputStream outputStream;
     public static HttpClient getClient(){return httpClient;};
@@ -55,6 +62,34 @@ public class HttpClient {
             System.out.println(String.format("Error:%s",IO.getMessage()));
         }
         return false;
+    }
+
+    public ArrayList<Activity> GetAllActivitiesFromServer(String i_URL)throws MalformedURLException{
+        url = new URL(i_URL);
+        ActivityList activityList;
+        try{
+            initiateURLConnection("GET");
+
+            //read the body response
+            inputStream = new BufferedInputStream(urlConnection.getInputStream());
+            String result = convertStreamToString(inputStream);
+            System.out.print(result);
+            inputStream.close();
+            if(urlConnection.getResponseCode() == 200){
+                mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
+                activityList = mapper.readValue(result,ActivityList.class);
+                return activityList.getActivities();
+            }
+            else{
+                throw new IllegalArgumentException(String.format("Error from server:%d: %s",urlConnection.getResponseCode(),urlConnection.getResponseMessage()));
+            }
+        }catch (ProtocolException pr){
+            System.out.println(String.format("Error:%s",pr.getMessage()));
+        }
+        catch (IOException IO){
+            System.out.println(String.format("Error:%s",IO.getMessage()));
+        }
+        return null;
     }
 
     private void initiateURLConnection(String httpMethod)throws IOException,ProtocolException {
