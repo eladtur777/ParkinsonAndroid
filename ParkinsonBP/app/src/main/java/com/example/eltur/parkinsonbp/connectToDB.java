@@ -105,10 +105,10 @@ public class connectToDB {
 
     }
 
-public ArrayList<String> AllActivies() {
+public ArrayList<String> getAllActivies() {
     try {
 
-        ActivitiesArray = HttpClient.getClient().GetAllActiviesFromServer("http://localhost:8080/BEAT-PD/User/GET/AllActivities/");
+        ActivitiesArray = HttpClient.getClient().GetAllActiviesFromServer("http://10.0.2.2:8080/BEAT-PD/User/GET/AllActivities/");
     }
     catch (MalformedURLException ex) {
         System.out.println(String.format("Error:%s", ex.getMessage()));

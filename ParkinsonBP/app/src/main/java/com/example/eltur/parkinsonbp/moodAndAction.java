@@ -2,6 +2,7 @@ package com.example.eltur.parkinsonbp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -17,7 +18,7 @@ import com.example.eltur.parkinsonbp.HttpClient.HttpClient;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 
-public class moodAndAction extends AppCompatActivity  {
+public class moodAndAction extends AppCompatActivity {
 
     public Button getBtnClickMe() {
         return btnClickMe;
@@ -44,11 +45,13 @@ public class moodAndAction extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mood);
         btnClickMe = (Button) findViewById(R.id.btnSaveActivity);
         Activities = new ArrayList<String>();
-        AllActivies();
         AddChkBox();
 
       //  cb.setOnClickListener(new View.OnClickListener() {
@@ -78,6 +81,8 @@ public class moodAndAction extends AppCompatActivity  {
     public void AddChkBox()
     {
         final LinearLayout  MyFramelaoyout = (LinearLayout )findViewById(R.id.Linearlayout);
+        connectToDB conn= new connectToDB();
+        Activities = conn.getAllActivies();
         CheckBox[] cb = new CheckBox[Activities.size()];
         for (int i = 0; i < Activities.size(); i++) {
             cb[i] = new CheckBox(this);
@@ -87,18 +92,6 @@ public class moodAndAction extends AppCompatActivity  {
             cb[i].setId(i + 6);
 
         }
-    }
-
-
-    public void AllActivies() {
-        try {
-
-            Activities = HttpClient.getClient().GetAllActiviesFromServer("http://localhost:8080/BEAT-PD/User/GET/AllActivities/");
-        }
-        catch (MalformedURLException ex) {
-            System.out.println(String.format("Error:%s", ex.getMessage()));
-        }
-
     }
 
     @Override
