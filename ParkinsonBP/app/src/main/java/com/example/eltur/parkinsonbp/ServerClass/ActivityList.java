@@ -1,5 +1,7 @@
 package com.example.eltur.parkinsonbp.ServerClass;
 
+import com.example.eltur.parkinsonbp.Activity;
+
 import java.util.ArrayList;
 
 /**

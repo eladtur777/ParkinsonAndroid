@@ -1,182 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/holo_orange_light"
-        tools:context="com.example.eltur.parkinsonbp.moodAndAction">
-
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@android:color/background_light"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            tools:background="@android:color/background_light">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:scrollbars="horizontal|vertical"
+    tools:context="com.example.eltur.parkinsonbp.moodAndAction">
 
 
-            <Button
-                android:id="@+id/btnSaveActivity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="save" />
+    <LinearLayout
+        android:id="@+id/Linearlayout"
+        android:layout_width="344dp"
+        android:layout_height="495dp"
+        android:animateLayoutChanges="true"
+        android:orientation="vertical"
+        android:textDirection="rtl"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:background="@android:color/white"
-                android:paddingLeft="175dp"
-                android:paddingTop="7dp"
-                android:text="בחר פעילויות"
-                android:textAlignment="center"
-                android:textColor="@color/common_google_signin_btn_text_light_default"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                tools:text="בחר פעילויות" />
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@android:color/white"
+            android:paddingLeft="175dp"
+            android:paddingTop="7dp"
+            android:text="בחר פעילויות"
+            android:textAlignment="center"
+            android:textColor="@color/common_google_signin_btn_text_light_default"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            tools:text="בחר פעילויות" />
 
-            <CheckBox
-                android:id="@+id/checkBox_wolking"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="40dp"
-                android:background="@color/colorPrimaryDark"
-                android:checked="false"
-                android:clickable="true"
-                android:soundEffectsEnabled="true"
-                android:text="הליכה"
-                android:textColor="@color/common_google_signin_btn_text_dark_default"
-                android:textColorLink="@android:color/white"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:visibility="visible"
-                tools:text="הליכה" />
+        <Button
+            android:id="@+id/btnSaveActivity"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="0dp"
+            android:text="שמור בחירה" />
 
-            <CheckBox
-                android:id="@+id/checkBox_running"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="103dp"
-                android:background="@color/colorPrimaryDark"
-                android:checked="false"
-                android:clickable="true"
-                android:soundEffectsEnabled="true"
-                android:text="ריצה"
-                android:textColor="@color/common_google_signin_btn_text_dark_default"
-                android:textColorLink="@android:color/white"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:visibility="visible"
-                tools:text="ריצה" />
+    </LinearLayout>
 
-            <CheckBox
-                android:id="@+id/checkBox_ather"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="227dp"
-                android:background="@color/colorPrimaryDark"
-                android:checked="false"
-                android:clickable="true"
-                android:soundEffectsEnabled="true"
-                android:text="פעילות גופנית אחרת"
-                android:textColor="@color/common_google_signin_btn_text_dark_default"
-                android:textColorLink="@android:color/white"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:visibility="visible"
-                tools:text="פעילות גופנית אחרת" />
+</android.support.constraint.ConstraintLayout>
 
-            <CheckBox
-                android:id="@+id/checkBox_social"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="289dp"
-                android:background="@color/colorPrimaryDark"
-                android:checked="false"
-                android:clickable="true"
-                android:soundEffectsEnabled="true"
-                android:text="פעילות חברתית"
-                android:textColor="@color/common_google_signin_btn_text_dark_default"
-                android:textColorLink="@android:color/white"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:visibility="visible"
-                tools:text="פעילות חברתית" />
-
-            <CheckBox
-                android:id="@+id/checkBox_Homework"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="351dp"
-                android:background="@color/colorPrimaryDark"
-                android:checked="false"
-                android:clickable="true"
-                android:soundEffectsEnabled="true"
-                android:text="עבודות בית"
-                android:textColor="@color/common_google_signin_btn_text_dark_default"
-                android:textColorLink="@android:color/white"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:visibility="visible"
-                tools:text="עבודות בית" />
-
-            <CheckBox
-                android:id="@+id/checkBox_visitDoctor"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="413dp"
-                android:background="@color/colorPrimaryDark"
-                android:checked="false"
-                android:clickable="true"
-                android:soundEffectsEnabled="true"
-                android:text="ביקור רופא"
-                android:textColor="@color/common_google_signin_btn_text_dark_default"
-                android:textColorLink="@android:color/white"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:visibility="visible"
-                tools:text="ביקור רופא" />
-
-            <CheckBox
-                android:id="@+id/checkBox_bike"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="475dp"
-                android:background="@color/colorPrimaryDark"
-                android:checked="false"
-                android:clickable="true"
-                android:soundEffectsEnabled="true"
-                android:text="אופניים"
-                android:textColor="@color/common_google_signin_btn_text_dark_default"
-                android:textColorLink="@android:color/white"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:visibility="visible"
-                tools:text="אופניים" />
-
-            <CheckBox
-                android:id="@+id/checkBox_swim"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="165dp"
-                android:background="@color/colorPrimaryDark"
-                android:checked="false"
-                android:clickable="true"
-                android:soundEffectsEnabled="true"
-                android:text="שחייה"
-                android:textColor="@color/common_google_signin_btn_text_dark_default"
-                android:textColorLink="@android:color/white"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:visibility="visible"
-                tools:text="שחייה" />
-
-        </FrameLayout>
-
-    </android.support.constraint.ConstraintLayout>

@@ -1,17 +1,10 @@
 package com.example.eltur.parkinsonbp;
 
 import com.example.eltur.parkinsonbp.HttpClient.HttpClient;
-import com.example.eltur.parkinsonbp.ServerClass.Activity;
 import com.example.eltur.parkinsonbp.ServerClass.PatientRecord;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -21,6 +14,15 @@ import java.util.Date;
 
 public class connectToDB {
 
+    public static ArrayList<String> getActivitiesArray() {
+        return ActivitiesArray;
+    }
+
+    public static void setActivitiesArray(ArrayList<String> activitiesArray) {
+        ActivitiesArray = activitiesArray;
+    }
+
+    private static ArrayList<String> ActivitiesArray = new ArrayList<>();
     public static void AddActivities(String patientID){
 
 //        //add list of activities of patient to Activity class list
@@ -103,10 +105,20 @@ public class connectToDB {
 
     }
 
+public ArrayList<String> AllActivies() {
+    try {
+
+        ActivitiesArray = HttpClient.getClient().GetAllActiviesFromServer("http://localhost:8080/BEAT-PD/User/GET/AllActivities/");
+    }
+    catch (MalformedURLException ex) {
+        System.out.println(String.format("Error:%s", ex.getMessage()));
+    }
+     return ActivitiesArray;
+}
 
 
 
-    public static void main(String args[]) {
+   // public static void main(String args[]) {
 
 //        //add list of activities of patient to Activity class list
 //        PatientRecord content = new PatientRecord();
@@ -122,13 +134,17 @@ public class connectToDB {
 //        }catch (MalformedURLException | JsonProcessingException ex){
 //            System.out.println(String.format("Error:%s",ex.getMessage()));
 //        }
-        try{
-            //httpClient.SendPatientRecordToServer("http://localhost:8080/BEAT-PD/User//Update/PatientRecord/ActivitiesAndMedicines",content);
-            HttpClient.GetAllActivitiesFromServer("http://localhost:8080/BEAT-PD/User/GET/AllActivities/");
-        }catch (MalformedURLException /*| JsonProcessingException*/ ex){
-            System.out.println(String.format("Error:%s",ex.getMessage()));
-       }
-    }
+       // try{
+
+        //    ActivitiesArray = HttpClient.getClient().GetAllActiviesFromServer("http://localhost:8080/BEAT-PD/User/GET/AllActivities/");
+      //  }catch(MalformedURLException ex){
+       //     System.out.println(String.format("Error:%s",ex.getMessage()));
+      //  }
+     //   ActivitiesArray = AllActivies();
+       // int i =5;
+       // return ActivitiesArray;
+    //}
+
 }
 
 

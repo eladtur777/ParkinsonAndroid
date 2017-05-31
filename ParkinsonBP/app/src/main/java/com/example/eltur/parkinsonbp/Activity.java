@@ -1,4 +1,4 @@
-package com.example.eltur.parkinsonbp.ServerClass;
+package com.example.eltur.parkinsonbp;
 
 import java.util.ArrayList;
 
