@@ -25,6 +25,86 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class moodAndAction extends AppCompatActivity  {
 
+    public Button getBtnClickMe() {
+        return btnClickMe;
+    }
+
+    public void setBtnClickMe(Button btnClickMe) {
+        this.btnClickMe = btnClickMe;
+    }
+
+    public CheckBox getChkBoxwolking() {
+        return chkBoxwolking;
+    }
+
+    public void setChkBoxwolking(CheckBox chkBoxwolking) {
+        this.chkBoxwolking = chkBoxwolking;
+    }
+
+    public CheckBox getChkBoxswim() {
+        return chkBoxswim;
+    }
+
+    public void setChkBoxswim(CheckBox chkBoxswim) {
+        this.chkBoxswim = chkBoxswim;
+    }
+
+    public CheckBox getChkBoxruning() {
+        return chkBoxruning;
+    }
+
+    public void setChkBoxruning(CheckBox chkBoxruning) {
+        this.chkBoxruning = chkBoxruning;
+    }
+
+    public CheckBox getChkBoxather() {
+        return chkBoxather;
+    }
+
+    public void setChkBoxather(CheckBox chkBoxather) {
+        this.chkBoxather = chkBoxather;
+    }
+
+    public CheckBox getChkBoxsocial() {
+        return chkBoxsocial;
+    }
+
+    public void setChkBoxsocial(CheckBox chkBoxsocial) {
+        this.chkBoxsocial = chkBoxsocial;
+    }
+
+    public CheckBox getChkBoxhomework() {
+        return chkBoxhomework;
+    }
+
+    public void setChkBoxhomework(CheckBox chkBoxhomework) {
+        this.chkBoxhomework = chkBoxhomework;
+    }
+
+    public CheckBox getChkBoxDoctorVisit() {
+        return chkBoxDoctorVisit;
+    }
+
+    public void setChkBoxDoctorVisit(CheckBox chkBoxDoctorVisit) {
+        this.chkBoxDoctorVisit = chkBoxDoctorVisit;
+    }
+
+    public CheckBox getChkBoxbike() {
+        return chkBoxbike;
+    }
+
+    public void setChkBoxbike(CheckBox chkBoxbike) {
+        this.chkBoxbike = chkBoxbike;
+    }
+
+    public ArrayList<String> getActivities() {
+        return Activities;
+    }
+
+    public void setActivities(ArrayList<String> activities) {
+        Activities = activities;
+    }
+
     Button btnClickMe;
     CheckBox chkBoxwolking;
     CheckBox chkBoxswim;
@@ -145,35 +225,17 @@ public class moodAndAction extends AppCompatActivity  {
 
         btnClickMe.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+               btnClickMe.setText("נלחץ");
+                //connect to server and get all activities into list
+                Activities =  connectToDB.GetAllActivitiesFromServer();
+              //  for(int i=0 ; i < Activities.size();i++) {
+                //   chkBoxwolking.setText(Activities.get(i).toString());
 
-                //connect to server
-                 connectToDB conn = new connectToDB();
-                 conn.AddActivities("1");
-                btnClickMe.setText("נשמר בהצלחה");
+                //}
 
             }
         });
 
-    }
-
-    private String getQuery(ArrayList<String> activities)
-    {
-        StringBuilder result = new StringBuilder();
-        boolean first = true;
-
-        for (int i=0; i<activities.size();i++)
-        {
-            if (!activities.get(i).isEmpty())
-            {
-                result.append("name:");
-                result.append(activities.get(i).toString());
-                result.append(",");
-            }
-          //  {name:%s,activityType:%s,activityLemitation:%s}
-
-       }
-
-        return result.toString();
     }
 
     @Override

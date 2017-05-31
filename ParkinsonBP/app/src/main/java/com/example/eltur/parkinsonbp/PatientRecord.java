@@ -21,7 +21,9 @@ public class PatientRecord {
 
             return String.format("{patientID:%s,patientLastUpdate:%s,listOfActivitiy:%s,listOfMedicine:%s}", patientID,CustomDateFormat().format(patientLastUpdate),listOfActivitiy,listOfMedicine);
         }
-        public PatientRecord(){}
+        public PatientRecord(){
+            patientLastUpdate = new Date();
+        }
 
     public PatientRecord(String patientID, Date patientLastUpdate, Collection<Activity> listOfActivitiy, Collection<Medicine> listOfMedicine) {
         this.patientID = patientID;

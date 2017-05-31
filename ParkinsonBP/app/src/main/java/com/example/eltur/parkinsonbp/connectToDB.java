@@ -18,6 +18,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -28,17 +29,32 @@ public class connectToDB {
 
     public static void AddActivities(String patientID){
 
-        //add list of activities of patient to Activity class list
+//        //add list of activities of patient to Activity class list
+//        PatientRecord content = new PatientRecord();
+//        content.setPatientID(patientID);
+//       // moodAndAction activities = new moodAndAction();
+//       Activity addNewActivity = new Activity("test12","test","test");
+//        //addNewActivity.AddActivitiesToList(activities.getActivityList());
+//        content.getListOfActivitiy().add(addNewActivity);
+//        content.setPatientLastUpdate(new Date());
         PatientRecord content = new PatientRecord();
         content.setPatientID(patientID);
-       // moodAndAction activities = new moodAndAction();
-       Activity addNewActivity = new Activity("test12","test","test");
+        // moodAndAction activities = new moodAndAction();
+        Activity addNewActivity = new Activity("test14","test","test");
         //addNewActivity.AddActivitiesToList(activities.getActivityList());
         content.getListOfActivitiy().add(addNewActivity);
         content.setPatientLastUpdate(new Date());
-
-
+        HttpClient httpClient = HttpClient.getClient();
         try{
+            httpClient.SendPatientRecordToServer("http://localhost:8080/BEAT-PD/User//Update/PatientRecord/ActivitiesAndMedicines",content);
+        }catch (MalformedURLException | JsonProcessingException ex){
+            System.out.println(String.format("Error:%s",ex.getMessage()));
+        }
+
+      /*  try{
+
+
+            /*
             URL url = new URL("http://localhost:8080/BEAT-PD/User/Update/PatientRecord/ActivitiesAndMedicines");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("PUT");
@@ -49,7 +65,7 @@ public class connectToDB {
             ObjectMapper mapper = new ObjectMapper();
             osw.write(mapper.writeValueAsString(content));
             osw.flush();
-            osw.close();
+            osw.close();*/
           /*
             // 1. URL
             URL url = new URL("http://localhost:8080/BEAT-PD/User/Update/PatientRecord/ActivitiesAndMedicines");
@@ -84,29 +100,52 @@ public class connectToDB {
            // wr.close();
            */
 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        } catch (MalformedURLException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
 
     }
-    public static void main(String args[]) {
-
-        //add list of activities of patient to Activity class list
-        PatientRecord content = new PatientRecord();
-        content.setPatientID("125");
-        // moodAndAction activities = new moodAndAction();
-        Activity addNewActivity = new Activity("test13","test","test");
-        //addNewActivity.AddActivitiesToList(activities.getActivityList());
-        content.getListOfActivitiy().add(addNewActivity);
-        content.setPatientLastUpdate(new Date());
-        HttpClient httpClient = HttpClient.getClient();
+    public static ArrayList<String> GetAllActivitiesFromServer()
+    {
         try{
-            httpClient.SendPatientRecordToServer("http://localhost:8080/BEAT-PD/User//Update/PatientRecord/ActivitiesAndMedicines",content);
-        }catch (MalformedURLException | JsonProcessingException ex){
+
+            HttpClient.getClient().GetAllActiviesFromServer("http://localhost:8080/BEAT-PD/User/GET/AllActivities/");
+        }catch(MalformedURLException ex){
             System.out.println(String.format("Error:%s",ex.getMessage()));
         }
+        ArrayList<String> arr = new ArrayList<>();
+        arr = HttpClient.getActivitiesList();
+        return arr;
+    }
+
+
+
+
+    public static void main(String args[]) {
+
+//        //add list of activities of patient to Activity class list
+//        PatientRecord content = new PatientRecord();
+//        content.setPatientID("1");
+//        // moodAndAction activities = new moodAndAction();
+//        Activity addNewActivity = new Activity("test13","test","test");
+//        //addNewActivity.AddActivitiesToList(activities.getActivityList());
+//        content.getListOfActivitiy().add(addNewActivity);
+//        content.setPatientLastUpdate(new Date());
+//        HttpClient httpClient = HttpClient.getClient();
+//        try{
+//            httpClient.SendPatientRecordToServer("http://localhost:8080/BEAT-PD/User//Update/PatientRecord/ActivitiesAndMedicines",content);
+//        }catch (MalformedURLException | JsonProcessingException ex){
+//            System.out.println(String.format("Error:%s",ex.getMessage()));
+//        }
+        try{
+
+            HttpClient.getClient().GetAllActiviesFromServer("http://localhost:8080/BEAT-PD/User/GET/AllActivities/");
+        }catch(MalformedURLException ex){
+            System.out.println(String.format("Error:%s",ex.getMessage()));
+       }
     }
 }
 

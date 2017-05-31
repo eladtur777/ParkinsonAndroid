@@ -1,16 +1,29 @@
 package com.example.eltur.parkinsonbp.HttpClient;
 
+import com.example.eltur.parkinsonbp.Activity;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.eltur.parkinsonbp.moodAndAction;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Field;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.security.AccessControlContext;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static android.R.attr.format;
 import static com.example.eltur.parkinsonbp.Utils.UtilsMethod.convertStreamToString;
@@ -28,6 +41,18 @@ public class HttpClient {
     private InputStream inputStream;
     private  OutputStream outputStream;
     public static HttpClient getClient(){return httpClient;};
+   ArrayList<Activity> ActivityList = new ArrayList<Activity>();
+
+
+    public static ArrayList<String> getActivitiesList() {
+        return activitiesList;
+    }
+
+    public static void setActivitiesList(ArrayList<String> activitiesList) {
+        activitiesList = activitiesList;
+    }
+
+    private static ArrayList<String> activitiesList = new ArrayList<>();
 
     public Boolean SendPatientRecordToServer(String i_URL, Object i_ObjectToSend)throws MalformedURLException,JsonProcessingException{
         String json = mapper.writeValueAsString(i_ObjectToSend);
@@ -56,10 +81,60 @@ public class HttpClient {
         }
         return false;
     }
+    public void GetAllActiviesFromServer(String i_URL)throws MalformedURLException {
+        url = new URL(i_URL);
+       // List<Activity> getActivitiesFromServer ;
+        String result2="";
 
+        try {
+            initiateURLConnection("GET");
+            //read the body response
+            inputStream = new BufferedInputStream(urlConnection.getInputStream());
+            String result = convertStreamToString(inputStream);
+
+            if(result.contains("success")){
+                 result2 = "["+result.substring(43,result.length()-2)+"]";
+                //String [] strings = new String [] {result2};
+                String Eladtest = result2;
+              //  String Eladtest =  "[{ \"activityName\" : \"שחייה\", \"activityType\" : \"ספורט\" , \"activityLemitation\" : \"אין\" },{\"activityName\" : \"ריצה\", \"activityType\" : \"ספורט\" , \"activityLemitation\" : \"אין\"}]";
+               // ArrayList<String> stringList = new ArrayList<String>(Arrays.asList(strings));
+                //act.AddActivitiesToList(stringList);
+
+               mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
+
+                Activity[] json = mapper.readValue(result, ActivityList.class);
+              //  List<Activity> pojoList = Arrays.asList(json);
+
+
+                for (int i=0 ; i<json.length;i++) {
+
+                        if (!json[i].activityName.isEmpty()) {
+                         //   System.out.println(json[i].activityName);
+                            activitiesList.add(json[i].activityName);
+                        }
+
+                }
+                System.out.println(activitiesList);
+
+                   //String ELADD = json.getActivityName();
+
+              //  mapper.readValue(result2,Activity.class);
+
+
+
+               // Activity testtest = mapper.readValue(result, Activity.class);
+            }
+            System.out.print(result2);
+            inputStream.close();
+        } catch (ProtocolException pr) {
+            System.out.println(String.format("Error:%s", pr.getMessage()));
+        } catch (IOException IO) {
+            System.out.println(String.format("Error:%s", IO.getMessage()));
+        }
+    }
     private void initiateURLConnection(String httpMethod)throws IOException,ProtocolException {
         urlConnection = (HttpURLConnection) url.openConnection();
-        urlConnection.setConnectTimeout(5000);
+        urlConnection.setConnectTimeout(10000);
         urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
         if (!httpMethod.equals("GET")) {
             urlConnection.setDoOutput(true);

@@ -7,7 +7,10 @@ import java.util.ArrayList;
  */
 
 public class Activity  {
-        private String activityName;
+
+    public String activityName;
+    private String activityType;//TODO need to add enum
+    private String activityLemitation;
 
     public String getActivityName() {
         return activityName;
@@ -33,8 +36,7 @@ public class Activity  {
         this.activityLemitation = activityLemitation;
     }
 
-    private String activityType;//TODO need to add enum
-        private String activityLemitation;
+
     @Override
     public String toString(){
         return String.format("{activityName:%s,activityType:%s,activityLemitation:%s}", activityName, activityType, activityLemitation);
