@@ -1,6 +1,5 @@
-package com.example.eltur.parkinsonbp;
+package com.example.eltur.parkinsonbp.ServerClass;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;

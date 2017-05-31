@@ -1,19 +1,13 @@
 package com.example.eltur.parkinsonbp;
 
 import com.example.eltur.parkinsonbp.HttpClient.HttpClient;
+import com.example.eltur.parkinsonbp.ServerClass.Activity;
+import com.example.eltur.parkinsonbp.ServerClass.PatientRecord;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.DataOutput;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -108,18 +102,6 @@ public class connectToDB {
 
 
     }
-    public static ArrayList<String> GetAllActivitiesFromServer()
-    {
-        try{
-
-            HttpClient.getClient().GetAllActiviesFromServer("http://localhost:8080/BEAT-PD/User/GET/AllActivities/");
-        }catch(MalformedURLException ex){
-            System.out.println(String.format("Error:%s",ex.getMessage()));
-        }
-        ArrayList<String> arr = new ArrayList<>();
-        arr = HttpClient.getActivitiesList();
-        return arr;
-    }
 
 
 
@@ -141,9 +123,9 @@ public class connectToDB {
 //            System.out.println(String.format("Error:%s",ex.getMessage()));
 //        }
         try{
-
-            HttpClient.getClient().GetAllActiviesFromServer("http://localhost:8080/BEAT-PD/User/GET/AllActivities/");
-        }catch(MalformedURLException ex){
+            //httpClient.SendPatientRecordToServer("http://localhost:8080/BEAT-PD/User//Update/PatientRecord/ActivitiesAndMedicines",content);
+            HttpClient.GetAllActivitiesFromServer("http://localhost:8080/BEAT-PD/User/GET/AllActivities/");
+        }catch (MalformedURLException /*| JsonProcessingException*/ ex){
             System.out.println(String.format("Error:%s",ex.getMessage()));
        }
     }
