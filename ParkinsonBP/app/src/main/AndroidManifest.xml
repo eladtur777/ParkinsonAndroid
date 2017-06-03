@@ -13,9 +13,10 @@
         <activity android:name=".firstpage"></activity>
         <activity android:name=".moodAndAction"></activity>
         <activity android:name=".information"></activity>
-        <activity android:name=".SplashScreen"></activity>
+        <activity android:name=".LogIn"></activity>
         <activity android:name=".Medicines"></activity>
-        <activity android:name=".LogIn">
+        <activity android:name=".AlertDialogBox"></activity>
+        <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

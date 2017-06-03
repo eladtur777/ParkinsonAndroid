@@ -6,13 +6,22 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.lang.Object;
+import java.util.ListIterator;
+
 
 /**
  * Created by Eltur on 28/05/2017.
  */
 
 public class connectToDB {
+
+
 
     public static ArrayList<String> getActivitiesArray() {
         return ActivitiesArray;
@@ -23,102 +32,77 @@ public class connectToDB {
     }
 
     private static ArrayList<String> ActivitiesArray = new ArrayList<>();
-    public static void AddActivities(String patientID){
 
-//        //add list of activities of patient to Activity class list
-//        PatientRecord content = new PatientRecord();
-//        content.setPatientID(patientID);
-//       // moodAndAction activities = new moodAndAction();
-//       Activity addNewActivity = new Activity("test12","test","test");
-//        //addNewActivity.AddActivitiesToList(activities.getActivityList());
-//        content.getListOfActivitiy().add(addNewActivity);
-//        content.setPatientLastUpdate(new Date());
+
+    public static String AddActivities(String patientID, ArrayList<String> userActivity) {
+        boolean serverResponde = false;
         PatientRecord content = new PatientRecord();
-        content.setPatientID(patientID);
-        // moodAndAction activities = new moodAndAction();
-        Activity addNewActivity = new Activity("test14","test","test");
-        //addNewActivity.AddActivitiesToList(activities.getActivityList());
-        content.getListOfActivitiy().add(addNewActivity);
         content.setPatientLastUpdate(new Date());
-        HttpClient httpClient = HttpClient.getClient();
-        try{
-            httpClient.SendPatientRecordToServer("http://localhost:8080/BEAT-PD/User//Update/PatientRecord/ActivitiesAndMedicines",content);
-        }catch (MalformedURLException | JsonProcessingException ex){
-            System.out.println(String.format("Error:%s",ex.getMessage()));
+        content.setPatientID(patientID);
+        Activity[] Activitiesjson = HttpClient.getJson();
+        int i =0;
+        for ( i=0 ; i < userActivity.size(); i++) {
+            if (!userActivity.get(i).toString().isEmpty()) {
+
+                Activitiesjson[i].setActivityName(userActivity.get(i).toString());
+                Activitiesjson[i].setActivityType("ספורט ופנאי");
+                Activitiesjson[i].setActivityLemitation("ללא");
+            }
         }
 
-      /*  try{
+        Collection<Activity> collection;
+        ArrayList json2 = new ArrayList<>();
+        Collections.addAll(json2,Activitiesjson);
+        collection = json2;
+        Iterator<Activity> iterator = collection.iterator();
+        for (int j =0 ; j < i; j++) {
+            iterator.next(); // ignore the first x values
+        }
 
+        while(iterator.hasNext()) {
+            iterator.next();
+            iterator.remove();
+        }
 
-            /*
-            URL url = new URL("http://localhost:8080/BEAT-PD/User/Update/PatientRecord/ActivitiesAndMedicines");
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("PUT");
-            connection.setDoOutput(true);
-            connection.setRequestProperty("Content-Type", "application/json");
-            connection.setRequestProperty("Accept", "application/json");
-            OutputStreamWriter osw = new OutputStreamWriter(connection.getOutputStream());
-            ObjectMapper mapper = new ObjectMapper();
-            osw.write(mapper.writeValueAsString(content));
-            osw.flush();
-            osw.close();*/
-          /*
-            // 1. URL
-            URL url = new URL("http://localhost:8080/BEAT-PD/User/Update/PatientRecord/ActivitiesAndMedicines");
-            // 2. Open connection
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            // 3. Specify POST method
-            conn.setRequestMethod("PUT");
-            // 4. Set the headers
-            conn.setRequestProperty("Content-Type", "application/json");
-          //  conn.setRequestProperty("Authorization", "key="+patientID);
-            conn.setDoOutput(true);
-            // 5. Add JSON data into POST request body
-            //`5.1 Use Jackson object mapper to convert Contnet object into JSON
-            ObjectMapper mapper = new ObjectMapper();
-            // 5.2 Get connection output stream
-            OutputStreamWriter wr = new OutputStreamWriter(
-                    conn.getOutputStream());
-            wr.write( mapper.writeValueAsString(content));
-            wr.flush();
-            wr.close();
+        content.setListOfActivitiy(collection);
 
+        try {
+            serverResponde =  HttpClient.getClient().SendPatientRecordToServer("http://10.0.2.2:8080/BEAT-PD/User/Update/PatientRecord/ActivitiesAndMedicines", content);
+        } catch (MalformedURLException | JsonProcessingException ex) {
+            System.out.println(String.format("Error:%s", ex.getMessage()));
+        }
+        json2.clear();
+        for (int j =0 ; iterator.hasNext(); j++) {
+            iterator.remove();
+            iterator.next();
+        }
 
-           // DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
-            // 5.3 Copy Content "JSON" into
-           // mapper.writeValue((OutputStream) wr, content);
-            //System.out.print(content);
-            //mapper.writeValueAsString(content);
-
-            // 5.4 Send the request
-           // wr.flush();
-            // 5.5 close
-           // wr.close();
-           */
-
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
-
+        collection.clear();
+        if (serverResponde) {
+            return "Success";
+        } else {
+            return "Faild";
+        }
     }
 
-public ArrayList<String> getAllActivies() {
-    try {
 
-        ActivitiesArray = HttpClient.getClient().GetAllActiviesFromServer("http://10.0.2.2:8080/BEAT-PD/User/GET/AllActivities/");
+
+
+
+
+    public static ArrayList<String> getAllActivies() {
+        try {
+            ActivitiesArray.clear();
+            ActivitiesArray = HttpClient.getClient().GetAllActiviesFromServer("http://10.0.2.2:8080/BEAT-PD/User/GET/AllActivities/");
+        } catch (MalformedURLException ex) {
+            System.out.println(String.format("Error:%s", ex.getMessage()));
+        }
+
+        return ActivitiesArray;
     }
-    catch (MalformedURLException ex) {
-        System.out.println(String.format("Error:%s", ex.getMessage()));
-    }
-     return ActivitiesArray;
-}
 
 
-
-   // public static void main(String args[]) {
+  //  public static void main(String args[]) {
 
 //        //add list of activities of patient to Activity class list
 //        PatientRecord content = new PatientRecord();
@@ -134,17 +118,31 @@ public ArrayList<String> getAllActivies() {
 //        }catch (MalformedURLException | JsonProcessingException ex){
 //            System.out.println(String.format("Error:%s",ex.getMessage()));
 //        }
-       // try{
+        // try{
 
         //    ActivitiesArray = HttpClient.getClient().GetAllActiviesFromServer("http://localhost:8080/BEAT-PD/User/GET/AllActivities/");
-      //  }catch(MalformedURLException ex){
-       //     System.out.println(String.format("Error:%s",ex.getMessage()));
-      //  }
-     //   ActivitiesArray = AllActivies();
-       // int i =5;
-       // return ActivitiesArray;
-    //}
+        //  }catch(MalformedURLException ex){
+        //     System.out.println(String.format("Error:%s",ex.getMessage()));
+        //  }
 
+        // int i =5;
+        // return ActivitiesArray;
+        //}
+      //  ArrayList<String> userAct = new ArrayList<>();
+       // userAct.add("בדיקהבדיקהבדיקה");
+      //  userAct.add("בדיקהבדיקה");
+       // userAct.add("בדיקהבדיקה");
+       // userAct.add("בדיקהבדיקה");
+      //  userAct.add("בדיקהבדיקה");
+       // userAct.add("elad test");
+      //  userAct.add("eladtest");
+
+     //   getAllActivies();
+     //   AddActivities("1", userAct);
+
+   // }
 }
+
+
 
 

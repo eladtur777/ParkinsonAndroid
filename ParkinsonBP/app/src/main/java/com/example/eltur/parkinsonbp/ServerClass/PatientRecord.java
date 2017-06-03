@@ -32,6 +32,12 @@ public class PatientRecord {
         this.listOfActivitiy = listOfActivitiy;
         this.listOfMedicine = listOfMedicine;
     }
+
+    public PatientRecord(String patientID, Date patientLastUpdate, Collection<Activity> listOfActivitiy) {
+        this.patientID = patientID;
+        this.patientLastUpdate = patientLastUpdate;
+        this.listOfActivitiy = listOfActivitiy;;
+    }
 //    public Long getPatientRecordID() {
 //        return patientRecordID;
 //    }

@@ -21,10 +21,14 @@ public class Medicines extends AppCompatActivity {
 
         // Initializing a new String Array
         String[] plants = new String[]{
-                "אקמול 3 פעמים ביום",
-                "סירופ שיעול פעמיים ביום",
-                "עוד תרופה 3 פעמים ביום"
-
+                "אקמול",
+                "אופטלגין",
+                "דקסמול",
+                "נורופן",
+                "Levo-dopa / Carbidopa - דופיקר ",
+                "Ropinirole -דופמין",
+                "Entacapone -קומטן",
+                "Pramipexol -סיפרול"
         };
 
         final List<String> plantsList = new ArrayList<String>(Arrays.asList(plants));
