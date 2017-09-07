@@ -8,8 +8,8 @@
     tools:context="com.example.eltur.parkinsonbp.LogIn">
 
     <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@color/common_google_signin_btn_text_light_default"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

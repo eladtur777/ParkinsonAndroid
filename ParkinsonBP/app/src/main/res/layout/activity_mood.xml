@@ -7,13 +7,13 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:scrollbars="horizontal|vertical"
-    tools:context="com.example.eltur.parkinsonbp.moodAndAction">
+    tools:context="com.example.eltur.parkinsonbp.Mood">
 
 
     <LinearLayout
         android:id="@+id/Linearlayout"
-        android:layout_width="344dp"
-        android:layout_height="495dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:animateLayoutChanges="true"
         android:orientation="vertical"
         android:textDirection="rtl"
@@ -22,27 +22,32 @@
 
         <TextView
             android:id="@+id/textView4"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="50dp"
             android:background="@android:color/white"
-            android:paddingLeft="175dp"
             android:paddingTop="7dp"
-            android:text="בחר פעילויות"
+            android:text="תאר/י את מצב הרוח שלך היום:"
             android:textAlignment="textStart"
             android:textColor="@color/common_google_signin_btn_text_light_default"
-            android:textSize="24sp"
+            android:textSize="18sp"
             android:textStyle="bold"
-            tools:text="בחר פעילויות" />
+            tools:text="תאר/י את מצב הרוח שלך היום:" />
 
         <Button
-            android:id="@+id/btnSaveActivity"
+            android:id="@+id/btnSaveMood"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="0dp"
-            android:background="@color/colorPrimary"
             android:text="שמור בחירה"
+            android:textSize="18sp"
+            android:layout_marginRight="2dp"
+            android:layout_marginLeft="2dp"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:background="@drawable/buttonshape"
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"/>
 
     </LinearLayout>
 

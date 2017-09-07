@@ -10,96 +10,173 @@
     <FrameLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/common_google_signin_btn_text_light_default"
+        android:background="#616161"
         android:elevation="2dp"
+        android:paddingTop="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        tools:background="@color/common_google_signin_btn_text_light_default">
+        tools:background="#616161">
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/activitiesImgBtn"
             style="@android:style/Widget.DeviceDefault.ImageButton"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginTop="10dp"
-            android:background="@android:color/holo_blue_light"
+            android:layout_height="70dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/shadow"
             android:paddingRight="185dp"
-            android:paddingTop="30dp"
+            android:paddingTop="0dp"
             android:src="@drawable/medicines10"
-            app:srcCompat="@color/colorPrimary" />
-
-        <ImageButton
-            android:id="@+id/imageButton2"
-            style="@android:style/Widget.DeviceDefault.ImageButton"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginTop="128dp"
-            android:background="@android:color/holo_blue_light"
-            android:paddingRight="280dp"
-            android:src="@drawable/akg"
-            app:srcCompat="@color/colorPrimary" />
+            app:srcCompat="@color/colorPrimary"
+            />
 
 
         <ImageButton
-            android:id="@+id/imageButton4"
+            android:id="@+id/HergelimImgBtn"
             style="@android:style/Widget.DeviceDefault.ImageButton"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginTop="250dp"
-            android:background="@android:color/holo_blue_light"
-            android:paddingRight="280dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="102dp"
+            android:background="@drawable/shadow"
+            android:paddingRight="230dp"
+            android:src="@drawable/hergelim"
+            app:srcCompat="@color/colorPrimary" />
+
+
+        <ImageButton
+            android:id="@+id/medicienImgBtn"
+            style="@android:style/Widget.DeviceDefault.ImageButton"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="180dp"
+            android:background="@drawable/shadow"
+            android:paddingRight="241dp"
             android:src="@drawable/medicines2"
             app:srcCompat="@color/colorPrimary" />
+
+        <ImageButton
+            android:id="@+id/sleepImgBtn"
+            style="@android:style/Widget.DeviceDefault.ImageButton"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="258dp"
+            android:background="@drawable/shadow"
+            android:paddingRight="274dp"
+            android:src="@drawable/sleep1"
+            app:srcCompat="@color/colorPrimary" />
+
+        <ImageButton
+            android:id="@+id/moodImgBtn"
+            style="@android:style/Widget.DeviceDefault.ImageButton"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="337dp"
+            android:background="@drawable/shadow"
+            android:paddingRight="290dp"
+            android:src="@drawable/naughty"
+            app:srcCompat="@color/colorPrimary" />
+
+        <ImageButton
+            android:id="@+id/informationImgBtn"
+            style="@android:style/Widget.DeviceDefault.ImageButton"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="417dp"
+            android:background="@drawable/shadow"
+            android:paddingRight="300dp"
+            android:src="@drawable/information3"
+            app:srcCompat="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/Hello"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layoutDirection="rtl"
+            android:textAlignment="viewEnd"
+            android:textColor="@android:color/background_light"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="225dp"
+            android:layout_marginLeft="243dp"
             android:layout_marginTop="50dp"
-            android:text="מצב רוח ופעילות"
-            android:textColor="@android:color/white"
+            android:text="פעילויות"
+            android:textAlignment="textEnd"
+            android:textColor="#73634a"
+            android:textDirection="rtl"
             android:textSize="24sp"
             android:textStyle="bold"
-            tools:text="מצב רוח ופעילות" />
+            tools:text="פעילויות" />
+
 
         <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
+            android:id="@+id/Hergelimtxtview"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="265dp"
-            android:layout_marginTop="170dp"
-            android:text="מידע"
-            android:textColor="@android:color/white"
+            android:layout_marginLeft="231dp"
+            android:layout_marginTop="120dp"
+            android:text="ביום-יום"
+            android:textColor="#73634a"
             android:textSize="24sp"
             android:textStyle="bold"
-            tools:text="מידע" />
+            tools:text="ביום-יום" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="250dp"
-            android:layout_marginTop="290dp"
+            android:layout_marginLeft="256dp"
+            android:layout_marginTop="200dp"
             android:text="תרופות"
-            android:textColor="@android:color/white"
+            android:textColor="#73634a"
             android:textSize="24sp"
             android:textStyle="bold"
             tools:text="תרופות" />
 
+        <TextView
+            android:id="@+id/sleepTxtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="279dp"
+            android:layout_marginTop="280dp"
+            android:text="שינה"
+            android:textColor="#73634a"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            tools:text="שינה" />
 
-        <DatePicker
-            android:id="@+id/datePicker"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="420dp"
+        <TextView
+            android:id="@+id/moodTxtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="243dp"
+            android:layout_marginTop="361dp"
+            android:text="מצב רוח"
+            android:textColor="#73634a"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            tools:text="מצב רוח" />
 
-            android:headerBackground="@color/common_google_signin_btn_text_light_focused" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="280dp"
+            android:layout_marginTop="438dp"
+            android:text="מידע"
+            android:textColor="#73634a"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            tools:text="מידע" />
 
 
     </FrameLayout>

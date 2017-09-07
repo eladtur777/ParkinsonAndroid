@@ -1,6 +1,7 @@
 package com.example.eltur.parkinsonbp;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.webkit.WebView;
@@ -29,7 +30,9 @@ public class information extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(information.this, firstpage.class);
                 startActivity(i);
-                finish();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    finishAffinity();
+                }
 
 
             }
@@ -41,7 +44,9 @@ public class information extends AppCompatActivity {
     public void onBackPressed() {
 
         startActivity(new Intent(information.this, firstpage.class));
-        finish();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            finishAffinity();
+        }
     }
 
 }

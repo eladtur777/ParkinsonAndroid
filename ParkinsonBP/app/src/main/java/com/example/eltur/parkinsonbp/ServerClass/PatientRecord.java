@@ -1,50 +1,68 @@
 package com.example.eltur.parkinsonbp.ServerClass;
 
-import com.example.eltur.parkinsonbp.Activity;
-
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
-
-import static com.example.eltur.parkinsonbp.Utils.UtilsMethod.CustomDateFormat;
 
 
 public class PatientRecord {
 
-       // private Long patientRecordID;
-    //key + login ID
-        private String patientID;
-        private Date patientLastUpdate;//format yyyy-mm-dd
-        private Collection<Activity> listOfActivitiy = new ArrayList();
-        private Collection<Medicine> listOfMedicine = new ArrayList();
-        @Override
-        public String toString(){
+    private String patientID;
+    private String patientLastUpdate;//format yyyy-mm-dd
 
-            return String.format("{patientID:%s,patientLastUpdate:%s,listOfActivitiy:%s,listOfMedicine:%s}", patientID,CustomDateFormat().format(patientLastUpdate),listOfActivitiy,listOfMedicine);
-        }
-        public PatientRecord(){
-            patientLastUpdate = new Date();
-        }
-
-    public PatientRecord(String patientID, Date patientLastUpdate, Collection<Activity> listOfActivitiy, Collection<Medicine> listOfMedicine) {
-        this.patientID = patientID;
-        this.patientLastUpdate = patientLastUpdate;
-        this.listOfActivitiy = listOfActivitiy;
-        this.listOfMedicine = listOfMedicine;
+    public Collection<ActivityUpdate> getListOfActivityUpdate() {
+        return listOfActivityUpdate;
     }
 
-    public PatientRecord(String patientID, Date patientLastUpdate, Collection<Activity> listOfActivitiy) {
-        this.patientID = patientID;
-        this.patientLastUpdate = patientLastUpdate;
-        this.listOfActivitiy = listOfActivitiy;;
+    public void setListOfActivityUpdate(Collection<ActivityUpdate> listOfActivityUpdate) {
+        this.listOfActivityUpdate = listOfActivityUpdate;
     }
-//    public Long getPatientRecordID() {
-//        return patientRecordID;
-//    }
-//
-//    public void setPatientRecordID(Long patientRecordID) {
-//        this.patientRecordID = patientRecordID;
-//    }
+
+    private Collection<ActivityUpdate> listOfActivityUpdate = new ArrayList();
+
+    public Collection<Medicine> getListOfMedicineUpdate() {
+        return listOfMedicineUpdate;
+    }
+
+    public void setListOfMedicineUpdate(Collection<Medicine> listOfMedicineUpdate) {
+        this.listOfMedicineUpdate = listOfMedicineUpdate;
+    }
+
+    private Collection<Medicine> listOfMedicineUpdate = new ArrayList();
+
+    public Collection<HabitUpdate> getListOfHabitUpdate() {
+        return listOfHabitUpdate;
+    }
+
+    public void setListOfHabitUpdate(Collection<HabitUpdate> listOfHabitUpdate) {
+        this.listOfHabitUpdate = listOfHabitUpdate;
+    }
+
+    private Collection<HabitUpdate> listOfHabitUpdate = new ArrayList<>();
+    private Collection<MoodCondition> listOfMoodCondition = new ArrayList<>();
+    private Collection<SleepDisorder> listOfSleepDisorders = new ArrayList<>();
+    private SleepCondition sleepCondition ;
+
+    public SleepCondition getSleepCondition() {
+        return sleepCondition;
+    }
+
+    public void setSleepCondition(SleepCondition sleepCondition) {
+        this.sleepCondition = sleepCondition;
+
+    }
+
+
+
+    public Collection<SleepDisorder> getListOfSleepDisorders() {
+        return listOfSleepDisorders;
+    }
+
+    public void setListOfSleepDisorders(Collection<SleepDisorder> listOfSleepDisorders) {
+        this.listOfSleepDisorders = listOfSleepDisorders;
+    }
+
+
+
 
     public String getPatientID() {
         return patientID;
@@ -54,27 +72,58 @@ public class PatientRecord {
         this.patientID = patientID;
     }
 
-    public Date getPatientLastUpdate() {
+    // private Long patientRecordID;
+    //key + login ID
+
+    public String getPatientLastUpdate() {
         return patientLastUpdate;
     }
 
-    public void setPatientLastUpdate(Date patientLastUpdate) {
+    public void setPatientLastUpdate(String patientLastUpdate) {
         this.patientLastUpdate = patientLastUpdate;
     }
 
-    public Collection<Activity> getListOfActivitiy() {
-        return listOfActivitiy;
+
+
+
+
+
+
+
+
+    public Collection<MoodCondition> getListOfMoodCondition() {
+        return listOfMoodCondition;
     }
 
-    public void setListOfActivitiy(Collection<Activity> listOfActivitiy) {
-        this.listOfActivitiy = listOfActivitiy;
+    public void setListOfMoodCondition(Collection<MoodCondition> listOfMoodCondition) {
+        this.listOfMoodCondition = listOfMoodCondition;
     }
 
-    public Collection<Medicine> getListOfMedicine() {
-        return listOfMedicine;
+
+
+        @Override
+    public String toString(){
+        return String.format("{patientID:%s,patientLastUpdate:%s,listOfActivityUpdate:%s,listOfMedicineUpdate:%s,listOfHabitUpdate:%s,listOfMoodCondition:%s,sleepCondition:%s}",
+                patientID,patientLastUpdate,listOfActivityUpdate,listOfMedicineUpdate, listOfHabitUpdate, listOfMoodCondition, sleepCondition);
+
     }
 
-    public void setListOfMedicine(Collection<Medicine> listOfMedicine) {
-        this.listOfMedicine = listOfMedicine;
+
+
+        public PatientRecord(){
+           // patientLastUpdate = new Date();
+        }
+
+    public PatientRecord(String patientID, String patientLastUpdate, Collection<ActivityUpdate> listOfActivitiy, Collection<Medicine> listOfMedicine,Collection<HabitUpdate> listOfHabit,Collection<MoodCondition> listOfMoodCondition,Collection<SleepCondition> listOfSleepConditionCondition) {
+        this.patientID = patientID;
+        this.patientLastUpdate = patientLastUpdate;
+        this.listOfActivityUpdate = listOfActivitiy;
+        this.listOfMedicineUpdate = listOfMedicine;
+        this.listOfHabitUpdate = listOfHabit;
+        this.listOfMoodCondition = listOfMoodCondition;
+       // this.sleepCondition = listOfSleepConditionCondition;
+
     }
+
+
 }

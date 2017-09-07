@@ -1,128 +1,167 @@
 package com.example.eltur.parkinsonbp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
+import android.os.StrictMode;
+import android.support.v4.widget.CompoundButtonCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.GridView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class Medicines extends AppCompatActivity {
-    GridView myGrid;
-    List<String> values;
+    Button btnSave;
+    private static ArrayList<String> medicine;
+    String userid ="";
+    private CheckBox[] cb;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medicines);
-      //  GridView gv = (GridView) findViewById(R.id.grid);
 
-        // Get the widgets reference from XML layout
-        GridView gv = (GridView) findViewById(R.id.gv);
+        btnSave = (Button) findViewById(R.id.btnSaveMedicine);
+        medicine = new ArrayList<String>();
+        AddChkBox();
 
-        // Initializing a new String Array
-        String[] plants = new String[]{
-                "רקוויפ",
-                "קומטן",
-                "סיפרול",
-                "אפוקין/ אפו-גו",
-                " ארטן",
-                "דקינט",
-                "פ.ק.מרץ",
-                "אזילקט",
-                "אלדפריל / ג'ומקס",
-                "Stalevo"
-        };
-
-        // Populate a List from Array elements
-        final List<String> plantsList = new ArrayList<String>(Arrays.asList(plants));
-
-        // Data bind GridView with ArrayAdapter (String Array elements)
-        gv.setAdapter(new ArrayAdapter<String>(
-                this, android.R.layout.simple_list_item_1, plantsList){
-
-            public View getView(int position, View convertView, ViewGroup parent) {
-
-                // Return the GridView current item as a View
-                View view = super.getView(position,convertView,parent);
-
-                // Convert the view as a TextView widget
-                final TextView tv = (TextView) view;
-                tv.setTextColor(Color.BLUE);
-
-                // Set the layout parameters for TextView widget
-                RelativeLayout.LayoutParams lp =  new RelativeLayout.LayoutParams(
-                        ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT
-                );
-                tv.setLayoutParams(lp);
-
-
-                // Get the TextView LayoutParams
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)tv.getLayoutParams();
-
-                params.width = getPixelsFromDPs(Medicines.this,188);
-
-                // Set the TextView layout parameters
-                tv.setLayoutParams(params);
-
-                // Display TextView text in center position
-                tv.setGravity(Gravity.CENTER);
-
-                // Set the TextView text font family and text size
-                tv.setTypeface(Typeface.SANS_SERIF, Typeface.NORMAL);
-                tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 18);
-
-                // Set the TextView text (GridView item text)
-                tv.setText(plantsList.get(position));
-
-                // Set the TextView background color
-                tv.setBackgroundColor(Color.WHITE);
-
-                tv.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        if(tv.getCurrentTextColor() == Color.RED)
-                        {
-                            tv.setTextColor(Color.BLUE);
-                        }
-                        else
-                        {tv.setTextColor(Color.RED);}
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                ArrayList<String> userchoice = new ArrayList<String>();
+                //userchoice.clear();
+                boolean ischkbox = false;
+                for (int i = 0; i < medicine.size(); i++) {
+                    if (cb[i].isChecked()) {
+                        String val = cb[i].getText().toString();
+                        userchoice.add(val);
+                        ischkbox = true;
                     }
-                });
-                // Return the TextView widget as GridView item
-                return tv;
+                }
+
+                if(!ischkbox)
+                {
+                    AlertDialog alertDialog = new AlertDialog.Builder(Medicines.this).create();
+                    alertDialog.setTitle("הודעת מערכת");
+                    alertDialog.setMessage("נא לבחור תרופות");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    // Intent i = new Intent(moodAndAction.this, firstpage.class);
+                                    // startActivity(i);
+                                    // finish();
+                                }
+                            });
+                    alertDialog.show();
+                    return;
+                }
+
+
+                //TODO:
+                connectToDB addDataToDB= new connectToDB();
+
+                userid = getIntent().getStringExtra("EXTRA_SESSION_ID");
+                String returnVal = addDataToDB.AddDataToDB(userid,null,null,userchoice,null,null,null);
+
+
+                if(returnVal == "Success")
+                {
+                    AlertDialog alertDialog = new AlertDialog.Builder(Medicines.this).create();
+                    alertDialog.setTitle("הודעת מערכת");
+                    alertDialog.setMessage("הבחירה נשמרה בהצלחה");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    Intent intent = new Intent(getBaseContext(), firstpage.class);
+                                    intent.putExtra("EXTRA_SESSION_ID", userid);
+                                    startActivity(intent);
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                                        finishAffinity();
+                                    }
+                                }
+                            });
+                    alertDialog.show();
+                }
+                else if(returnVal == "Faild")
+                {
+                    AlertDialog alertDialog = new AlertDialog.Builder(Medicines.this).create();
+                    alertDialog.setTitle("הודעת מערכת");
+                    alertDialog.setMessage("לא ניתן לעדכן תרופות אנא נסה מאוחר יותר");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    Intent intent = new Intent(getBaseContext(), firstpage.class);
+                                    intent.putExtra("EXTRA_SESSION_ID", userid);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            });
+                    alertDialog.show();
+                }
+
             }
+
         });
     }
 
-    @Override
-    public void onBackPressed() {
-        startActivity(new Intent(Medicines.this, firstpage.class));
-        finish();
+
+
+    public void AddChkBox()
+    {
+        final LinearLayout MyFramelaoyout = (LinearLayout )findViewById(R.id.Linearlayout);
+        connectToDB conn= new connectToDB();
+        //medicine.clear();
+       // MyFramelaoyout.clearAnimation();
+
+        //TODO:
+        medicine = conn.getAllMedicines();
+
+        cb = new CheckBox[medicine.size()];
+        for (int i = 0; i < medicine.size(); i++) {
+            cb[i] = new CheckBox(this);
+            cb[i].setTextColor(Color.BLACK);
+            cb[i].setText(medicine.get(i).toString());
+            cb[i].setTextSize(22);
+            cb[i].setId(i + 6);
+            int states[][] = {{android.R.attr.state_checked}, {}};
+            int colors[] = {Color.BLACK, Color.parseColor("#00793c")};
+            CompoundButtonCompat.setButtonTintList(cb[i], new ColorStateList(states, colors));
+            if(i%2 !=0) {
+                cb[i].setBackgroundColor(Color.parseColor("#E8F5E9"));
+            }
+            else
+            {
+                cb[i].setBackgroundColor(Color.parseColor("#E0E0E0"));
+
+            }
+            MyFramelaoyout.addView(cb[i]);
+        }
     }
 
-    // Method for converting DP value to pixels
-    public static int getPixelsFromDPs(AppCompatActivity activity, int dps){
-        Resources r = activity.getResources();
-        int  px = (int) (TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, dps, r.getDisplayMetrics()));
-        return px;
+
+    @Override
+    public void onBackPressed() {
+
+        Intent intent = new Intent(getBaseContext(), firstpage.class);
+        intent.putExtra("EXTRA_SESSION_ID", getIntent().getStringExtra("EXTRA_SESSION_ID"));
+        startActivity(intent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            finishAffinity();
+        }
     }
+
 }
 
 
